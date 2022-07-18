@@ -1,0 +1,37 @@
+*{
+    margin:0;
+    padding: 0;;
+}
+
+body{
+    background-color:  #046FDD;
+    font-family: 'lato';
+
+}
+
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 800px;
+    align-items: center;
+  }
+
+  input{
+    width:500px;
+    height: 50px;
+    background-color: white;
+    border: none;
+    padding-left: 15px;
+    margin-top:15px;
+
+}
+h4{
+    font-size: 18px;
+    left: -10px;
+}
+
+.btn{
+    background-color: #68B0F9
+}

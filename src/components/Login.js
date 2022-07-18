@@ -1,54 +1,69 @@
-import React, {useState,useEffect} from 'react';
-import {signInWithEmailAndPassword} from "firebase/auth"
-import {useNavigate} from "react-router-dom"
+import React , {useState} from 'react'
+import { useNavigate} from  'react-router-dom';
+import {Link} from "react-router-dom"
+import {signInWithEmailAndPassword} from 'firebase/auth';
+import {auth} from '../config/firebase'
+import '../css/login.css'
+import GoogleButton from 'react-google-button'
+import { color } from '@mui/system';
 
-function Login(){
-    const [email,setEmail] = useState("")
-    const [password,setPassword] = useState("")
-    const navigate = useNavigate();
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    };
+function Login (){
 
-    const handlePasswordChange = (e) => {
-        setPassword(e.target.value)
-    }
-
-    const handleSignIn = () => {
-        signInWithEmailAndPassword(auth,email,password).catch((err) =>
-        alert(err.message)
-        );
-    };
+const [email, setEmail] = useState('');
+const [password, setPassword] = useState("");
 
     const btn ={
-        width: '19px',
-        height: '10px',
-        marginTop:"3%"
+        width: '150px',
+        height: '30px',
+        marginTop:"3%",
+       
     }
-    return (
-        <div className="login">
-            <h1>To-List</h1>
-            <div className="login-container">
-                <input type="email" onChange={handleEmailChange} value={email}/>
-                <input type="password" onChange={handlePasswordChange} value={password}/>
-                
-                
-            <button style={btn} onClick={Login}>Login </button>
+    
+    let navigate= useNavigate();
+
+    const Login=(()=>{ 
+
+        signInWithEmailAndPassword(auth,email,password).then(()=>{
+            navigate("/home");
+        })
+  
+        })
+    
 
 
-            <span>Dont have an account?</span> 
-            <span>
+return (
+<div className="container">
+ <div className="Inputs">
+    <h1>Welcome Back</h1><br></br>
+    <h2> Manage You Task Checklist Easily</h2><br></br>
+    <h4>Email</h4>
+    <input type="email" placeholder="Enter your email" onChange={(e)=> setEmail(e.target.value)}/> <br></br><br></br>
+
+    <h4>Password</h4>
+    <input type="password" placeholder="Enter your password"  onChange={(e)=> setPassword(e.target.value)} />
+  </div>
+    <button style={btn} onClick={Login}>Login </button>
+
+
+    <span>Dont have an account?</span> 
+    <span>
     
     
-            <Link to="/sign-up">Create an account</Link>
-            </span>
-                
-                <button> Sign In</button>
-                <p>Don't have an account?</p><a href="">Create an account</a>
-            </div>
+    <Link to="/sign-up">Create one</Link>
+     </span>
 
-        </div>
-    );
+     <h2>OR</h2>
 
-} 
+     <div >
+ <GoogleButton className="Google"></GoogleButton>
+ 
+
+</div>
+
+</div>
+);
+
+
+}
+
 export default Login
