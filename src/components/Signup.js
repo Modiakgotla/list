@@ -22,7 +22,7 @@ function SignUp() {
     const Register=(()=>{ 
 
         createUserWithEmailAndPassword(auth,uname,email,password).then(()=>{
-          navigate("/homepage");
+          navigate("/Homepage");
         })
   
         })
@@ -50,7 +50,7 @@ return(
 
     
     
-<Link to="/dfs">Login</Link>
+<Link to="/">Login</Link>
      
  <h2>OR</h2>
 

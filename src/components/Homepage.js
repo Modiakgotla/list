@@ -1,53 +1,94 @@
 import React, {useEffect, useState} from "react";
-import { Button, TextField } from "@mui/material";
-import { Firebase } from "firebase";
+
+import { Firebase } from "../config/firebase";
 import {auth,db} from "../config/firebase"
+import { useNavigate } from "react-router-dom";
+import { signOut, onAuthStateChanged } from "firebase/auth";
+import {uid} from "uid";
+import {set, ref, onValue, remove} from 'firebase/database'
 
+export default function Homepage() {
 
-function Homepage() {
+   
 
-    const [todoInput,setTodoInput] = useState('')
-    function addTodo(e) {
-        e.preventDefault();
+    const [todo,setTodo] =useState("");
+    const [todos,setTodos] = useState([])
 
-        db.collection("todos").add({
-            inprogess: true,
-            timestamp: Firebase.firestore.fieldValue.serverTimestamp(),
-            todo: todoInput,
-        })
-    }
+const navigate = useNavigate();
+
+useEffect(() => {
+    auth.onAuthStateChanged((user) =>{
+        if(user) {
+            onValue(ref(db,'/${auth.currentUser.uid}/${uid}'), snapshot =>{
+                setTodos([]);
+                const data = snapshot.val();
+                if(data !== null){
+                    Object.values(data).map(todo => {
+                        setTodos((oldArray) => [...oldArray,todo]);
+                    });
+                }
+            })
+        }
+        else if (!user) {
+            navigate("/");
+        }
+    });
+}, [])
+
+const handleSignOut = () =>{
+    signOut(auth)
+    .then(()=> {
+        navigate("/")
+    })
+
+    .catch((err) => {
+        alert(err.message);
+    });
+
+}
+
+    const writeToDatabase = () =>{
+        const uidd = uid();
+        set(ref(db,'/${auth.currentUser.uid}/${uidd}'),{
+            todo: todo,
+            uidd: uidd
+        });
+        setTodo("");
+    };
+
+    const handleDelete = (uid) => {
+        remove(ref(db,'/${auth.currentUser.uid}/${uid}'));
+        console.log('test',uid)
+    };
 
    return(
-    <div className="Homepage"
+    <div className="Homepage">
         
-        style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center"
-        }}
-        >
+     <h1> Ka mmao</h1>
+     <input type="Add text"
+     placeholder="Add todo..."
+     value={todo}
+     onChange={(e)=> setTodo(e.target.value)}
+
+     />
+     {
+        todos.map((todo) => (
             <div>
-            <h1>To do list</h1>
-            <TextField
-            id="standard-basic"
-            label="Write a Todo"
-            value={todoInput}
-            onChange={(e) => 
-                setTodoInput(e.target.value)}
-                style={{maxWidth: "300px", width: "90vw"
-            }}
-            />
-            <Button variant="contained" onClick={addTodo}>
-               Default
-            </Button>
-            
+            <h1>{todo.todo}</h1>
+            <button>update</button>
+            <button onClick={() => handleDelete(todo.uid)}>delete</button>
+            </div>
+        ))
+     }
+     <button onClick={writeToDatabase}>add</button>
+     <button onClick={handleSignOut}> signout</button>
+        
         </div>
 
 
-    </div>
+  
    )
 
    ;
 }
 
-export default Homepage;
