@@ -9,6 +9,8 @@ import react from "react";
 import Title from './components/title';
 import AddTodo from './components/AddTodo';
 
+
+
 import Project from './components/protect';
 import Homepage from './components/Homepage';
 import React from 'react';
@@ -51,37 +53,32 @@ export default function App() {
 <div>
 <Router>
   <userAuthContextProvider>
+
   <Routes>
-
-    <Route path='/' element={
-      <Project>
-        <div>
-      <Title />
-
-        </div>
-        <div>
-          <AddTodo />
-        </div>
-
-    
-  
-  <div className="todo_container">
-    {todos.map((todo)=>(
-    <Todo2
-    key={todo.id}
-    todo={todo}
-    toggleComplete={toggleComplete}
-    handleDelete={handleDelete}
-    handleEdit={handleEdit}
-    />
-  ))}
-  </div>
-  </Project> } />
-   
-
-  <Route path="/" element ={<Login/>} />
+  <Route exact path="/" element ={<Login/>} />
   <Route  path="/sign-up" element={<Signup/>}/>
-  <Route path= "/Todo2" element={<Todo2/>}/>
+ 
+    <Route path= "/AddTodo" element={<Project>
+      <div>
+        <Title/>
+      </div>
+      <div>
+        <AddTodo/>
+      </div>
+      <div className="todo_container">
+        {todos.map((todo)=>(
+          <Todo2
+          key={todo.id}
+          todo={todo}
+          toggleComplete={toggleComplete}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          />
+        ))}
+        
+      </div>
+    </Project>} />
+
   </Routes>
   </userAuthContextProvider>
   </Router>

@@ -24,7 +24,7 @@ const [password, setPassword] = useState("");
     const Login=(()=>{ 
 
         signInWithEmailAndPassword(auth,email,password).then(()=>{
-            navigate("/Homepage");
+            navigate("/AddTodo");
         })
   
         })

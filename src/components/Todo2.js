@@ -2,7 +2,7 @@ import React from "react";
 import checkCircleicon from "@mui/icons-material/CheckCircle"
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete"
-
+import '../css/todo2.css'
 export default function Todo({
     todo,
     toggleComplete,
@@ -45,14 +45,17 @@ return (
                 className="button-edit"
                 onClick={()=> handleEdit(todo,newTitle)}
                 >
-                    <EditIcon id="i" />
+                    {/* <EditIcon id="i" /> */}
 
             </button>
             <button className="button-delete"
             onClick={() => handleDelete(todo.id)}
             >
-                <DeleteIcon id="i" />
+                {/* <DeleteIcon id="i" /> */}
+
+            <>complete</>
             </button>
+
         </div>
     </div>
 )

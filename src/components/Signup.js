@@ -22,7 +22,7 @@ function SignUp() {
     const Register=(()=>{ 
 
         createUserWithEmailAndPassword(auth,uname,email,password).then(()=>{
-          navigate("/Homepage");
+          navigate("/AddTodo");
         })
   
         })
