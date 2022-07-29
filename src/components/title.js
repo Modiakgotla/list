@@ -26,15 +26,16 @@ export default function Title (){
         
 
         <div className="title">
+         <div className="photo">
+               <img src={pic} alt=""/>
+            </div>
             <h1>Todo App</h1>
             <div className="LO">
             <button  onClick={uit}>Log Out</button>
           
             </div>
             
-            <div className="photo">
-               <img src={pic} alt=""/>
-            </div>
+           
        </div>
        
        

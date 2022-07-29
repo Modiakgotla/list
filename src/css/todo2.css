@@ -4,6 +4,15 @@
     border-color: aqua;
     background-color: aqua;
     border-radius: 30px;
-    
+    right: -90px;
+}
+.High-line{
+    border-bottom: 2px solid red;
+}
+.Medium-line{
+    border-bottom: 2px solid yellow;
+}
+.Low-line{
+    border-bottom: 2px solid green;
 }
 

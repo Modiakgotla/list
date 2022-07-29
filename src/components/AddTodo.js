@@ -20,6 +20,7 @@ export default function AddTodo(props) {
                 completed: false,
             });
             setTitle("");
+            setPriority("");
         }
     };
 
@@ -65,7 +66,7 @@ export default function AddTodo(props) {
             </div>
             <div className="btn_container">
                 <button>Add</button> <br></br> <br></br>
-                <select onChange={(e) => setPriority(e.target.value)}>
+                <select onChange={(e) => setPriority(e.target.value)} value={priority}>
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
                     <option value="High">High</option>
